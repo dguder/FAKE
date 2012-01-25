@@ -124,6 +124,8 @@ let CopyFile target fileName =
     match fi with
     | File f ->  
         let targetName = target @@ fi.Name
+        let fiTarget = fileInfo targetName
+        if not fiTarget.Directory.Exists then fiTarget.Directory.Create()
         logVerbosefn "Copy %s to %s" fileName targetName
         f.CopyTo(targetName,true) |> ignore    
     | Directory _ -> logVerbosefn "Ignoring %s, because it is no file" fileName
